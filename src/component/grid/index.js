@@ -9,38 +9,42 @@ export const RenderGrid = ({ count }) => {
     }
 
     const [fivers, setFivers] = useState({});
+    const [correctFivers, setCorrectFivers] = useState([]);
     const [complited, setComplited] = useState(false);
 
     useEffect(() => {
-        let obj = {};
-        let countLine = 0;
+        let fivers = {},
+            correctFivers = [],
+            countLine = 0;
 
         for (let i = 1; i < (count * count); i++) {
             if ((i - 1) % count === 0) {
                 countLine++;
-                obj[countLine] = [];
+                fivers[countLine] = [];
             }
 
-            obj[countLine].push({
+
+            fivers[countLine].push({
                 countLine,
                 title: i,
                 key: i
-            })
+            });
 
+            correctFivers.push(i);
         }
 
-        if (Array.isArray(obj[countLine])) {
-            addEmpty(countLine, obj[countLine])
+        if (Array.isArray(fivers[countLine])) {
+            addEmpty(countLine, fivers[countLine])
         }
 
-        setFivers(obj);
+        setFivers(fivers);
+        setCorrectFivers(correctFivers)
     }, [count]);
 
 
     const onClickFiver = (e) => {
-        let line = Number(e.target.id.split("_")[0]);
-        let index = Number(e.target.id.split("_")[1]);
-        let obj = {};
+        let line = Number(e.target.id.split("_")[0]),
+            index = Number(e.target.id.split("_")[1]);
 
         let indexElem = fivers[line].findIndex(elem => elem.key === index)
 
@@ -59,33 +63,53 @@ export const RenderGrid = ({ count }) => {
             locationEmpty.line = line - 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("zalet. dirka svergy")
+            console.log("space top")
         } else if (fivers[line + 1] && fivers[line + 1][indexElem].key === EMPTY.key) {
             locationEmpty.line = line + 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("zalet. dirka snizu")
+            console.log("space down")
         } else if (fivers[line][indexElem + 1] && fivers[line][indexElem + 1].key === EMPTY.key) {
             locationEmpty.line = line;
             locationEmpty.index = indexElem + 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("zalet. dirka sprava")
+            console.log("space right")
         } else if (fivers[line][indexElem - 1] && fivers[line][indexElem - 1].key === EMPTY.key) {
             locationEmpty.line = line;
             locationEmpty.index = indexElem - 1;
 
             replaceFiver(locationEmpty, locationFiver);
 
-            console.log("zalet. dirka sleva")
+            console.log("space left")
         } else {
-            console.log("zalet. hui v rot")
+            console.log("no space")
         }
     }
 
-    const examinationFivers = () => {
-
-    }
+    // useEffect(() => {
+    //     let arrKeyFivers = [],
+    //         inprogress = true;
+    //
+    //
+    //     for (const [_, value] of Object.entries(fivers)) {
+    //         value.forEach(element => {
+    //             arrKeyFivers.push(element.key)
+    //         })
+    //     }
+    //
+    //     correctFivers.forEach((value, index) => {
+    //         if (value !== arrKeyFivers[index]) {
+    //             inprogress = false;
+    //         }
+    //     })
+    //
+    //
+    //
+    //     if (inprogress == true) {
+    //         setComplited(true);
+    //     }
+    // }, [fivers, complited])
 
     const addEmpty = (countLine, array) => {
         EMPTY.countLine = countLine;
@@ -139,6 +163,31 @@ export const RenderGrid = ({ count }) => {
         newFivers[locationFiver.line][locationFiver.index] = EMPTY;
 
         setFivers(newFivers);
+
+
+        let arrKeyFivers = [],
+            inprogress = true;
+
+
+        for (const [_, value] of Object.entries(newFivers)) {
+            value.forEach(element => {
+                arrKeyFivers.push(element.key)
+            })
+        }
+
+        correctFivers.forEach((value, index) => {
+            if (value !== arrKeyFivers[index]) {
+                inprogress = false;
+            }
+        })
+
+
+        if (inprogress == true) {
+
+            console.log("complited")
+
+            setComplited(true);
+        }
     }
 
     const renderFiver = () => {
