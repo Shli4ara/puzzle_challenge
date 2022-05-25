@@ -1,0 +1,22 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: auto 40ch auto;
+}
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.fiver {
+    width: 50px;
+    height: 50px;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+.fiver.empty {
+    cursor: default;
+}
