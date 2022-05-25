@@ -87,30 +87,6 @@ export const RenderGrid = ({ count }) => {
         }
     }
 
-    // useEffect(() => {
-    //     let arrKeyFivers = [],
-    //         inprogress = true;
-    //
-    //
-    //     for (const [_, value] of Object.entries(fivers)) {
-    //         value.forEach(element => {
-    //             arrKeyFivers.push(element.key)
-    //         })
-    //     }
-    //
-    //     correctFivers.forEach((value, index) => {
-    //         if (value !== arrKeyFivers[index]) {
-    //             inprogress = false;
-    //         }
-    //     })
-    //
-    //
-    //
-    //     if (inprogress == true) {
-    //         setComplited(true);
-    //     }
-    // }, [fivers, complited])
-
     const addEmpty = (countLine, array) => {
         EMPTY.countLine = countLine;
 
