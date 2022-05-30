@@ -80,7 +80,6 @@ export const RenderGrid = ({ count }) => {
             locationEmpty.index = indexElem - 1;
 
             replaceFiver(locationEmpty, locationFiver);
-
             console.log("space left")
         } else {
             console.log("no space")
@@ -119,8 +118,6 @@ export const RenderGrid = ({ count }) => {
                 countLine++;
             }
 
-            //TODO кажется я тут малость мутирую данные
-
             element.countLine = countLine;
             obj[countLine].push(element);
         })
@@ -140,10 +137,8 @@ export const RenderGrid = ({ count }) => {
 
         setFivers(newFivers);
 
-
         let arrKeyFivers = [],
-            inprogress = true;
-
+            inProgress = true;
 
         for (const [_, value] of Object.entries(newFivers)) {
             value.forEach(element => {
@@ -153,13 +148,11 @@ export const RenderGrid = ({ count }) => {
 
         correctFivers.forEach((value, index) => {
             if (value !== arrKeyFivers[index]) {
-                inprogress = false;
+                inProgress = false;
             }
         })
 
-
-        if (inprogress == true) {
-
+        if (inProgress == true) {
             console.log("complited")
 
             setComplited(true);

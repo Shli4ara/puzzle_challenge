@@ -1,6 +1,6 @@
 .wrapper {
     display: grid;
-    grid-template-columns: auto 40ch auto;
+    grid-template-columns: 40fr auto 40fr;
 }
 
 .grid {

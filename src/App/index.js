@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 import './style.css';
-import {RenderGrid} from "../component/grid";
+import {RenderGrid} from "../components/Grid";
 
 function Index() {
     const [count, setCount] = useState(5);
@@ -11,6 +11,7 @@ function Index() {
         const value = e.target.value;
 
         setCount(value)
+
         // setCount(() => {
         //     if (value < 4 || value > 15) {
         //         setError(true);
@@ -28,7 +29,7 @@ function Index() {
 
     return (
         <div className="App">
-            Введите количество ячеек <input onChange={changeCount} type={"number"} />
+            Введите количество ячеек <input onChange={changeCount} type={"number"} min="3" max="16" />
 
             {error && "введите норммальное значение"}
 
