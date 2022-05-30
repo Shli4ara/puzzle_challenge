@@ -19,6 +19,22 @@
     border-color: #ebb563;
 }
 
+.finish {
+    text-align: center;
+}
+
+.completed-puzzle {
+    font-size: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    display: inline;
+}
+
+.finish .random-button {
+    display: inline;
+}
+
+
 .wrapper {
     display: grid;
     grid-template-columns: 40fr auto 40fr;
@@ -34,7 +50,6 @@
 
 .grid.completed {
     border-color: #c2e7b0;
-    transition: .1s;
     background: #f0f9eb;
 }
 

@@ -36,13 +36,14 @@ export const RenderGrid = ({ count }) => {
             addEmpty(countLine, fivers[countLine])
         }
 
+        setCompleted(false);
         setFivers(fivers);
         setCorrectFivers(correctFivers)
     }, [count]);
 
 
     const onClickFiver = (e) => {
-       // if (e.target.className.indexOf(EMPTY.key) != -1) return false;
+        if (completed || e.target.id.split('_')[1] == EMPTY.key) return;
 
         let line = Number(e.target.id.split("_")[0]),
             index = Number(e.target.id.split("_")[1]);
@@ -64,26 +65,20 @@ export const RenderGrid = ({ count }) => {
             locationEmpty.line = line - 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("space top")
         } else if (fivers[line + 1] && fivers[line + 1][indexElem].key === EMPTY.key) {
             locationEmpty.line = line + 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("space down")
         } else if (fivers[line][indexElem + 1] && fivers[line][indexElem + 1].key === EMPTY.key) {
             locationEmpty.line = line;
             locationEmpty.index = indexElem + 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("space right")
         } else if (fivers[line][indexElem - 1] && fivers[line][indexElem - 1].key === EMPTY.key) {
             locationEmpty.line = line;
             locationEmpty.index = indexElem - 1;
 
             replaceFiver(locationEmpty, locationFiver);
-            console.log("space left")
-        } else {
-            console.log("no space")
         }
     }
 
@@ -154,8 +149,6 @@ export const RenderGrid = ({ count }) => {
         })
 
         if (inProgress == true) {
-            console.log("completed")
-
             setCompleted(true);
         }
     }
@@ -164,27 +157,33 @@ export const RenderGrid = ({ count }) => {
         if (!Object.keys(fivers).length) return;
 
         let arr = [];
-        let className = "fiver";
 
         for (const key in fivers) {
             fivers[key].forEach(e => {
-                // if (e.key == EMPTY.key) {
-                //     className += ` ${EMPTY.key}`;
-                // }
-
-                arr.push(<div key={e.key} id={`${e.countLine}_${e.key}`} onClick={onClickFiver} className={className}>{e.title}</div>)
+                arr.push(<div key={e.key} id={`${e.countLine}_${e.key}`} onClick={onClickFiver} className={"fiver"}>{e.title}</div>)
             })
         }
 
         return arr;
     }
 
+    const restartGame = () => {
+        setCompleted(false);
+        randomFivers();
+    }
 
 
     return (
         <>
-            {count > 0 && (
+            {count > 0 && completed == false && (
                 <button className={"random-button"} onClick={randomFivers}>Перемешать</button>
+            )}
+
+            {completed && (
+                <div className={"finish"}>
+                    <div className={"completed-puzzle"}>Ура! Вы собрали пазл!</div>
+                    <button className={"random-button"} onClick={restartGame}>Повторить</button>
+                </div>
             )}
 
             <div className={"wrapper"}>

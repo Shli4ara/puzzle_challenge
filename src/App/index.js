@@ -1,7 +1,7 @@
 import {useState} from "react";
+import {RenderGrid} from "../components/Grid";
 
 import './style.css';
-import {RenderGrid} from "../components/Grid";
 
 function Index() {
     const [count, setCount] = useState(0);
