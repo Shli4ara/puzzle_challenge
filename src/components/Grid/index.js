@@ -10,7 +10,7 @@ export const RenderGrid = ({ count }) => {
 
     const [fivers, setFivers] = useState({});
     const [correctFivers, setCorrectFivers] = useState([]);
-    const [complited, setComplited] = useState(false);
+    const [completed, setCompleted] = useState(false);
 
     useEffect(() => {
         let fivers = {},
@@ -22,7 +22,6 @@ export const RenderGrid = ({ count }) => {
                 countLine++;
                 fivers[countLine] = [];
             }
-
 
             fivers[countLine].push({
                 countLine,
@@ -43,6 +42,8 @@ export const RenderGrid = ({ count }) => {
 
 
     const onClickFiver = (e) => {
+       // if (e.target.className.indexOf(EMPTY.key) != -1) return false;
+
         let line = Number(e.target.id.split("_")[0]),
             index = Number(e.target.id.split("_")[1]);
 
@@ -92,7 +93,7 @@ export const RenderGrid = ({ count }) => {
         return array.push(EMPTY);
     }
 
-    const random = () => {
+    const randomFivers = () => {
         let arr = [];
 
         for (const key in fivers) {
@@ -153,9 +154,9 @@ export const RenderGrid = ({ count }) => {
         })
 
         if (inProgress == true) {
-            console.log("complited")
+            console.log("completed")
 
-            setComplited(true);
+            setCompleted(true);
         }
     }
 
@@ -163,23 +164,32 @@ export const RenderGrid = ({ count }) => {
         if (!Object.keys(fivers).length) return;
 
         let arr = [];
+        let className = "fiver";
 
         for (const key in fivers) {
             fivers[key].forEach(e => {
-                arr.push(<div key={e.key} id={`${e.countLine}_${e.key}`} onClick={onClickFiver} className={"fiver"}>{e.title}</div>)
+                // if (e.key == EMPTY.key) {
+                //     className += ` ${EMPTY.key}`;
+                // }
+
+                arr.push(<div key={e.key} id={`${e.countLine}_${e.key}`} onClick={onClickFiver} className={className}>{e.title}</div>)
             })
         }
 
         return arr;
     }
 
+
+
     return (
         <>
-            <button onClick={random}>перемешать</button>
+            {count > 0 && (
+                <button className={"random-button"} onClick={randomFivers}>Перемешать</button>
+            )}
 
             <div className={"wrapper"}>
                 <div></div>
-                <div style={{gridTemplateColumns: `repeat(${count}, 1fr)`}} className={"grid"}>
+                <div style={{gridTemplateColumns: `repeat(${count}, 1fr)`}} className={`grid ${completed ? "completed" : null}`}>
                     {renderFiver()}
                 </div>
                 <div></div>
