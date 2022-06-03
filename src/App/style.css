@@ -1,7 +1,8 @@
 .welcome-text {
-    display: grid;
-    grid-template-columns: auto;
-    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
 }
 
 .error {

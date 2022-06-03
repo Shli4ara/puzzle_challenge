@@ -1,7 +1,7 @@
 import './style.css';
 import {useEffect, useState} from "react";
 
-export const RenderGrid = ({ count }) => {
+export const RenderGrid = ({ count, changeCountStep }) => {
     const EMPTY = {
         countLine: null,
         title: "",
@@ -61,6 +61,10 @@ export const RenderGrid = ({ count }) => {
 
         //TODO Запилить бабель на ? (null | undefined)
 
+        changeCountStep((prev) => {
+            return prev + 1;
+        });
+
         if (fivers[line - 1] && fivers[line - 1][indexElem].key === EMPTY.key) {
             locationEmpty.line = line - 1;
 
@@ -118,6 +122,7 @@ export const RenderGrid = ({ count }) => {
             obj[countLine].push(element);
         })
 
+        changeCountStep(0);
         setFivers(obj);
     }
 
